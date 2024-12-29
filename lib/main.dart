@@ -1,10 +1,13 @@
 // import 'dart:developer';
+import 'package:blogapp/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:blogapp/core/theme/theme.dart';
 // import 'package:blogapp/features/auth/data/datasources/auth_remote_data_source.dart';
 // import 'package:blogapp/features/auth/data/repositories/auth_repositories_impl.dart';
 // import 'package:blogapp/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:blogapp/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blogapp/features/auth/presentation/pages/signin_page.dart';
+import 'package:blogapp/features/blog/presentation/bloc/blog_bloc.dart';
+import 'package:blogapp/features/blog/presentation/pages/blog_page.dart';
 import 'package:blogapp/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,8 +38,15 @@ Future<void> main() async {
         //     ),
         //   ),
         // ),
+
+        create: (_) => serviceLocator<AppUserCubit>(),
+      ),
+      BlocProvider(
         create: (_) => serviceLocator<AuthBloc>(),
       ),
+      BlocProvider(
+        create: (_) => serviceLocator<BlogBloc>(),
+      )
     ],
     child: const MyApp(),
   ));
@@ -67,7 +77,17 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Blog App',
       theme: AppTheme.darkThemeMode,
-      home: const SigninPage(),
+      home: BlocSelector<AppUserCubit, AppUserState, bool>(
+        selector: (state) {
+          return state is AppUserLoggedIn;
+        },
+        builder: (context, isLoggedIn) {
+          if (isLoggedIn) {
+            return const BlogPage();
+          }
+          return const SigninPage();
+        },
+      ),
     );
   }
 }

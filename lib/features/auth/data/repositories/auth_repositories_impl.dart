@@ -3,7 +3,7 @@
 import 'package:blogapp/core/error/exceptions.dart';
 import 'package:blogapp/core/error/failures.dart';
 import 'package:blogapp/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:blogapp/features/auth/domain/entities/user.dart';
+import 'package:blogapp/core/common/entities/user.dart';
 import 'package:blogapp/features/auth/domain/repository/aut_repository.dart';
 // import 'package:flutter/rendering.dart';
 // import 'package:fpdart/src/either.dart';

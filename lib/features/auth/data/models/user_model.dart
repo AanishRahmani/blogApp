@@ -1,6 +1,6 @@
 // import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'package:blogapp/features/auth/domain/entities/user.dart';
+import 'package:blogapp/core/common/entities/user.dart';
 
 class UserModel extends User {
   UserModel({
