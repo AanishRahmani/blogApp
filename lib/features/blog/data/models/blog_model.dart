@@ -4,6 +4,7 @@ import 'package:blogapp/features/blog/domain/entity/blog.dart';
 
 class BlogModel extends Blog {
   BlogModel({
+    super.posterName,
     required super.id,
     required super.posterid,
     required super.title,
@@ -40,6 +41,7 @@ class BlogModel extends Blog {
   }
 
   BlogModel copyWith({
+    String? posterName,
     String? id,
     String? posterid,
     String? title,
@@ -49,6 +51,7 @@ class BlogModel extends Blog {
     DateTime? updatedAt,
   }) {
     return BlogModel(
+      posterName: posterName ?? this.posterName,
       id: id ?? this.id,
       posterid: posterid ?? this.posterid,
       title: title ?? this.title,

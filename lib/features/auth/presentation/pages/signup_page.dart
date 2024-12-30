@@ -7,6 +7,7 @@ import 'package:blogapp/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blogapp/features/auth/presentation/pages/signin_page.dart';
 import 'package:blogapp/features/auth/presentation/widgets/auth_feild.dart';
 import 'package:blogapp/features/auth/presentation/widgets/auth_gradient_button.dart';
+import 'package:blogapp/features/blog/presentation/pages/blog_page.dart';
 // import 'package:blogapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,6 +47,12 @@ class _SignupPageState extends State<SignupPage> {
             listener: (context, state) {
               if (state is Authfailure) {
                 showSnackBar(context, state.message);
+              } else if (state is AuthSuccess) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  BlogPage.route(),
+                  (route) => false,
+                );
               }
             },
             builder: (context, state) {

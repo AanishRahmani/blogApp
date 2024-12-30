@@ -45,6 +45,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return UserModel.fromJson(response.user!.toJson()).copyWith(
         email: currentUsrSession!.user.email,
       );
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       log('AuthRemoteDataSource: Error during sign-in: $e');
       throw ServerException(e.toString());
@@ -76,6 +78,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         ..copyWith(
           email: currentUsrSession!.user.email,
         );
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       log('AuthRemoteDataSource: Error during sign-up: $e');
       throw ServerException(e.toString());

@@ -3,6 +3,7 @@
 
 class Blog {
   final String id;
+  final String? posterName;
   final String posterid;
   final String title;
   final String content;
@@ -13,6 +14,7 @@ class Blog {
 
   Blog({
     required this.id,
+    this.posterName,
     required this.posterid,
     required this.title,
     required this.content,

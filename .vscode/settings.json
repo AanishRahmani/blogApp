@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "/home/aanish/Desktop/flutter/blogapp/linux"
+    "cmake.sourceDirectory": "/home/aanish/Desktop/flutter/blogapp/linux",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

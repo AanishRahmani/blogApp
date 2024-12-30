@@ -1,11 +1,11 @@
 import 'dart:io';
-
+import 'package:blogapp/core/constant/constants.dart';
 import 'package:blogapp/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:blogapp/core/common/widgets/loader.dart';
 import 'package:blogapp/core/common/widgets/show_snackbar.dart';
 import 'package:blogapp/core/theme/app_pallete.dart';
 import 'package:blogapp/core/utils/pick_image.dart';
-import 'package:blogapp/features/blog/domain/entity/blog.dart';
+// import 'package:blogapp/features/blog/domain/entity/blog.dart';
 import 'package:blogapp/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:blogapp/features/blog/presentation/pages/blog_page.dart';
 import 'package:blogapp/features/blog/presentation/widgets/blog_editor.dart';
@@ -70,7 +70,7 @@ class _AddNewBlogState extends State<AddNewBlog> {
         listener: (context, state) {
           if (state is BlogFailure) {
             showSnackBar(context, state.error);
-          } else if (state is BlogSuccess) {
+          } else if (state is BlogUploadSuccess) {
             Navigator.pushAndRemoveUntil(
                 context, BlogPage.route(), (route) => false);
           }
@@ -141,12 +141,7 @@ class _AddNewBlogState extends State<AddNewBlog> {
                     SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
-                          children: [
-                            'Technology',
-                            'Business',
-                            'Programming',
-                            'Entertainment',
-                          ]
+                          children: Constants.constListTopics
                               .map(
                                 (e) => Padding(
                                   padding: const EdgeInsets.all(5.0),
