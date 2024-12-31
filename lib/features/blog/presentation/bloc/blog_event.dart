@@ -19,3 +19,5 @@ final class BlogUploadEvent extends BlogEvent {
 }
 
 final class BLogFetchAllBlogs extends BlogEvent {}
+
+final class BlogReloadBlogs extends BlogEvent {}

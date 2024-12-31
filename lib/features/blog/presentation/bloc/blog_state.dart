@@ -7,6 +7,8 @@ final class BlogInitial extends BlogState {}
 
 final class BlogLoading extends BlogState {}
 
+final class BlogReload extends BlogState {}
+
 final class BLogUpload extends BlogState {}
 
 final class BlogFailure extends BlogState {

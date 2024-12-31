@@ -23,8 +23,10 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
     on<BlogEvent>((event, emit) => emit(BlogLoading()));
     on<BlogUploadEvent>(_onBLogUpload);
     on<BLogFetchAllBlogs>(_onFetchAllBlogs);
+    on<BlogReloadBlogs>(_onBlogReload);
   }
 
+  // Fetch all blogs
   void _onFetchAllBlogs(
       BLogFetchAllBlogs event, Emitter<BlogState> emit) async {
     final res = await _getAllBlogs(NoParams());
@@ -33,6 +35,7 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
         (r) => emit(BlogDisplaySuccess(r)));
   }
 
+  // Upload blog
   void _onBLogUpload(BlogUploadEvent event, Emitter<BlogState> emit) async {
     final res = await _uploadBlog(UploadBlogParams(
       posterId: event.posterId,
@@ -46,5 +49,15 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
       (l) => emit(BlogFailure(l.message)),
       (r) => emit(BlogUploadSuccess()),
     );
+  }
+
+  // Handle Blog Reload
+  void _onBlogReload(BlogReloadBlogs event, Emitter<BlogState> emit) async {
+    emit(BlogLoading()); // Show loading indicator while fetching
+
+    final res = await _getAllBlogs(NoParams());
+
+    res.fold((l) => emit(BlogFailure(l.message)),
+        (r) => emit(BlogDisplaySuccess(r))); // Update state with new blogs
   }
 }

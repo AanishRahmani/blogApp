@@ -1,14 +1,11 @@
 import 'package:blogapp/core/common/widgets/loader.dart';
 import 'package:blogapp/core/common/widgets/show_snackbar.dart';
-// import 'package:blogapp/core/theme/app_pallete.dart';
 import 'package:blogapp/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:blogapp/features/blog/presentation/pages/add_new_blog.dart';
 import 'package:blogapp/features/blog/presentation/widgets/blog_card.dart';
-// import 'package:blogapp/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter/widgets.dart';
 
 class BlogPage extends StatefulWidget {
   static route() => MaterialPageRoute(
@@ -25,6 +22,12 @@ class _BlogPageState extends State<BlogPage> {
   void initState() {
     super.initState();
     context.read<BlogBloc>().add(BLogFetchAllBlogs());
+  }
+
+  // Function to trigger blog reload
+  Future<void> _reloadBlogs() async {
+    // Dispatch the event to reload blogs
+    context.read<BlogBloc>().add(BlogReloadBlogs());
   }
 
   @override
@@ -54,19 +57,22 @@ class _BlogPageState extends State<BlogPage> {
           }
 
           if (state is BlogDisplaySuccess) {
-            return ListView.builder(
-              itemCount: state.blogs.length,
-              itemBuilder: (context, index) {
-                final blog = state.blogs[index];
-                return BlogCard(
-                  blog: blog,
-                  color: index % 3 == 0
-                      ? const Color.fromARGB(255, 179, 71, 63)
-                      : index % 3 == 0
-                          ? const Color.fromARGB(255, 222, 222, 65)
-                          : Colors.blueAccent,
-                );
-              },
+            return RefreshIndicator(
+              onRefresh: _reloadBlogs,
+              child: ListView.builder(
+                itemCount: state.blogs.length,
+                itemBuilder: (context, index) {
+                  final blog = state.blogs[index];
+                  return BlogCard(
+                    blog: blog,
+                    color: index % 3 == 0
+                        ? const Color.fromARGB(255, 179, 71, 63)
+                        : index % 3 == 1
+                            ? const Color.fromARGB(255, 110, 72, 143)
+                            : Colors.blueAccent,
+                  );
+                },
+              ),
             );
           }
 
