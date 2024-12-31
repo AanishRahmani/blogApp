@@ -27,14 +27,12 @@ Future<void> initDependencies() async {
       ),
     );
 
-    // Initialize Authentication-related dependencies
     _initAuth();
 
-    // Initialize Blog-related dependencies
     _initBlog();
   } catch (e) {
     log('Error initializing dependencies: $e');
-    rethrow; // Allow the error to propagate if needed
+    rethrow;
   }
 }
 
@@ -84,7 +82,7 @@ void _initAuth() {
     log('Authentication dependencies initialized successfully');
   } catch (e) {
     log('Error initializing authentication dependencies: $e');
-    rethrow; // Allow the error to propagate if needed
+    rethrow;
   }
 }
 
